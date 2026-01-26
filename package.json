@@ -1,0 +1,26 @@
+{
+  "name": "family-tracker-monorepo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KajiyamaVK/family-tracker-monorepo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KajiyamaVK/family-tracker-monorepo/issues"
+  },
+  "homepage": "https://github.com/KajiyamaVK/family-tracker-monorepo#readme",
+  "description": "",
+  "devDependencies": {
+    "lefthook": "^2.0.15"
+  }
+}
