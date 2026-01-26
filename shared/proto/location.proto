@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package family_tracker;
+
+// Defines a single GPS coordinate update.
+// We use 'double' for lat/lng for maximum precision (PostGIS requirement).
+message LocationUpdate {
+  // UUID of the user (v4 string)
+  string user_id = 1;
+
+  // Latitude in decimal degrees (e.g., -23.5505)
+  double latitude = 2;
+
+  // Longitude in decimal degrees (e.g., -46.6333)
+  double longitude = 3;
+
+  // Accuracy in meters (Vital for filtering "ghost" jumps)
+  float accuracy = 4;
+
+  // Speed in meters/second (Used to detect driving vs walking)
+  float speed = 5;
+
+  // Heading/Bearing in degrees (0-360)
+  float heading = 6;
+
+  // Battery level (0.0 to 1.0) - Critical for debugging client issues
+  float battery_level = 7;
+
+  // Unix timestamp (milliseconds) when the location was RECORDED (not sent)
+  int64 timestamp = 8;
+  
+  // Is the device charging? (Helping distinguish "Plugged in car" vs "Home")
+  bool is_charging = 9;
+}
+
+// A batch of updates (for offline syncing)
+// When the device comes back online, it sends a list of these.
+message LocationBatch {
+  repeated LocationUpdate updates = 1;
+}

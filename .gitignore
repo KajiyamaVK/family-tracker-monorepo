@@ -1,0 +1,19 @@
+# General
+.DS_Store
+.vscode/
+.idea/
+*.log
+
+# Node
+node_modules/
+dist/
+coverage/
+
+# Flutter
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+build/
+ios/Flutter/Generated.xcconfig
+ios/Flutter/flutter_export_environment.sh
+
