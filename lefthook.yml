@@ -24,14 +24,3 @@ pre-commit:
     #   root: apps/backend
     #   glob: "**/*.ts"
     #   run: npm run lint
-
-# Pre-Push é o momento ideal para testes pesados (Integração)
-pre-push:
-  parallel: false
-  commands:
-    mobile-integration-tests:
-      root: apps/mobile
-      glob: "**/*.dart"
-      # Atenção: Requer emulador rodando ou device conectado.
-      # Pode falhar se não houver ambiente gráfico configurado.
-      run: flutter test integration_test
