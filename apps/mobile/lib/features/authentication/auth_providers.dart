@@ -1,8 +1,14 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:mobile/features/authentication/auth_controller.dart';
 
-// Provider para injetar a instância do GoogleSignIn (facilita mocks nos testes)
+// Provider to inject the GoogleSignIn instance (facilitates mocks in tests)
 final googleSignInProvider = Provider<GoogleSignIn>((ref) => GoogleSignIn());
 
-// Provider para gerenciar o estado do usuário logado
-final userProvider = StateProvider<GoogleSignInAccount?>((ref) => null);
+// Controller Provider that manages the authentication logic and state
+final authControllerProvider =
+    StateNotifierProvider<AuthController, AsyncValue<GoogleSignInAccount?>>(
+        (ref) {
+  final googleSignIn = ref.watch(googleSignInProvider);
+  return AuthController(googleSignIn);
+});

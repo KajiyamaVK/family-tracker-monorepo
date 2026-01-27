@@ -5,8 +5,9 @@ import 'package:mobile/features/authentication/login_page.dart';
 import 'package:mobile/features/home/home_page.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
-  // O Router "observa" o userProvider. Qualquer mudança no usuário recria/avalia a rota.
-  final userState = ref.watch(userProvider);
+  // O Router "observa" o authControllerProvider.
+  // Qualquer mudança no estado (Login, Logout, Loading, Error) reavalia a rota.
+  final authState = ref.watch(authControllerProvider);
 
   return GoRouter(
     initialLocation: '/login',
@@ -21,8 +22,12 @@ final routerProvider = Provider<GoRouter>((ref) {
       ),
     ],
     redirect: (context, state) {
-      final isLoggedIn = userState != null;
+      final isLoggedIn = authState.value != null;
       final isLoggingIn = state.uri.toString() == '/login';
+
+      // Enquanto estiver carregando (ex: tentando logar), não redirecionamos bruscamente,
+      // deixamos a UI de loading do LoginPage lidar com isso, ou podemos impedir navegação.
+      // Aqui focamos apenas no estado final 'value'.
 
       if (!isLoggedIn && !isLoggingIn) {
         // Se não está logado e tenta acessar qualquer coisa que não seja login -> Login

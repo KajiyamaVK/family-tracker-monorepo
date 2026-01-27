@@ -5,27 +5,30 @@ import 'package:mobile/features/authentication/auth_providers.dart';
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
 
-  Future<void> _handleSignOut(WidgetRef ref) async {
-    try {
-      final googleSignIn = ref.read(googleSignInProvider);
-      await googleSignIn.disconnect();
-      ref.read(userProvider.notifier).state = null;
-      // O redirecionamento será automático pelo Router
-    } catch (error) {
-      debugPrint('Erro ao deslogar: $error');
-    }
-  }
+  static const double _padding = 24.0;
+  static const double _avatarRadius = 50.0;
+  static const double _avatarIconSize = 100.0;
+  static const double _avatarBorderWidth = 3.0;
+  static const double _spacingSmall = 8.0;
+  static const double _spacingMedium = 24.0;
+  static const double _spacingLarge = 48.0;
+  static const double _emailPaddingH = 12.0;
+  static const double _emailPaddingV = 6.0;
+  static const double _emailRadius = 20.0;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final user = ref.watch(userProvider);
+    final authState = ref.watch(authControllerProvider);
+    final user = authState.value;
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('Home'),
         actions: [
           IconButton(
-            onPressed: () => _handleSignOut(ref),
+            onPressed: () {
+              ref.read(authControllerProvider.notifier).signOut();
+            },
             icon: const Icon(Icons.logout),
             tooltip: 'Sair',
           ),
@@ -35,7 +38,7 @@ class HomePage extends ConsumerWidget {
           ? const Center(child: CircularProgressIndicator())
           : Center(
               child: Padding(
-                padding: const EdgeInsets.all(24.0),
+                padding: const EdgeInsets.all(_padding),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -45,39 +48,46 @@ class HomePage extends ConsumerWidget {
                           shape: BoxShape.circle,
                           border: Border.all(
                             color: Theme.of(context).colorScheme.primary,
-                            width: 3,
+                            width: _avatarBorderWidth,
                           ),
                         ),
                         child: CircleAvatar(
-                          radius: 50,
+                          radius: _avatarRadius,
                           backgroundImage: NetworkImage(user.photoUrl!),
                         ),
                       )
                     else
-                      Icon(Icons.account_circle, size: 100, color: Colors.grey),
-                    const SizedBox(height: 24),
+                      const Icon(
+                        Icons.account_circle,
+                        size: _avatarIconSize,
+                        color: Colors.grey,
+                      ),
+                    const SizedBox(height: _spacingMedium),
                     Text(
                       'Bem-vindo,',
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
                     Text(
                       user.displayName ?? 'Usuário',
-                      style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineMedium
+                          ?.copyWith(
                             fontWeight: FontWeight.bold,
                           ),
                       textAlign: TextAlign.center,
                     ),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: _spacingSmall),
                     Container(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 6,
+                        horizontal: _emailPaddingH,
+                        vertical: _emailPaddingV,
                       ),
                       decoration: BoxDecoration(
                         color: Theme.of(context)
                             .colorScheme
                             .surfaceContainerHighest,
-                        borderRadius: BorderRadius.circular(20),
+                        borderRadius: BorderRadius.circular(_emailRadius),
                       ),
                       child: Text(
                         user.email,
@@ -86,7 +96,7 @@ class HomePage extends ConsumerWidget {
                             ),
                       ),
                     ),
-                    const SizedBox(height: 48),
+                    const SizedBox(height: _spacingLarge),
                     const Divider(),
                     const SizedBox(height: 16),
                     Text(
