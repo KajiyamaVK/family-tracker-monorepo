@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:mobile/features/authentication/auth_providers.dart';
 import 'package:mobile/features/authentication/login_page.dart';
 import 'package:mobile/features/home/home_page.dart';
+import 'package:mobile/features/map/presentation/map_page.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
   // O Router "observa" o authControllerProvider.
@@ -19,6 +20,10 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/',
         builder: (context, state) => const HomePage(),
+      ),
+      GoRoute(
+        path: '/map',
+        builder: (context, state) => const MapPage(),
       ),
     ],
     redirect: (context, state) {

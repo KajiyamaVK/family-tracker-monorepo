@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mobile/features/authentication/auth_providers.dart';
 
 class HomePage extends ConsumerWidget {
@@ -108,6 +109,14 @@ class HomePage extends ConsumerWidget {
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
                             color: Colors.grey,
                           ),
+                    ),
+                    const SizedBox(height: 24),
+                    FilledButton.icon(
+                      onPressed: () {
+                        context.push('/map');
+                      },
+                      icon: const Icon(Icons.map),
+                      label: const Text('Abrir Mapa'),
                     ),
                   ],
                 ),
