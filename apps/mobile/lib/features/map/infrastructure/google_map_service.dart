@@ -42,12 +42,35 @@ class GoogleMapService implements MapService {
       return null;
     }
 
-    // Get current position
-    final position = await Geolocator.getCurrentPosition();
-    return MapLocation(
-      latitude: position.latitude,
-      longitude: position.longitude,
-    );
+    // 1. Try to get the last known position first (Fastest)
+    // This resolves the "3-4 minute" wait on first install if the OS has any cached location.
+    final lastKnown = await Geolocator.getLastKnownPosition();
+    if (lastKnown != null) {
+      return MapLocation(
+        latitude: lastKnown.latitude,
+        longitude: lastKnown.longitude,
+      );
+    }
+
+    // 2. If no cached location, fetch fresh position with a strict timeout & lower accuracy
+    // High accuracy on cold boot causes the hang. Balanced (medium) is usually sufficient for initial centering.
+    try {
+      final position = await Geolocator.getCurrentPosition(
+        locationSettings: const LocationSettings(
+          accuracy: LocationAccuracy.medium,
+          timeLimit: Duration(seconds: 10),
+        ),
+      );
+      
+      return MapLocation(
+        latitude: position.latitude,
+        longitude: position.longitude,
+      );
+    } catch (e) {
+      // Timeout or error: return null so the UI doesn't hang forever, 
+      // or you could return a default fallback location here.
+      return null;
+    }
   }
 
   @override

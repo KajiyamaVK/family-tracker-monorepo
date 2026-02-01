@@ -4,21 +4,13 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mobile/features/map/infrastructure/google_map_service.dart';
 import 'package:mobile/features/map/presentation/map_controller.dart';
 
-/// Provider definition (overriding the Unimplemented one)
-/// usually done in valid scope or main, but for now we can rely on override or simple definition here.
-/// Actually, let's redefine mapServiceProvider here for real app usage if we were not using a global DI container.
-/// In a real app, strict Clean Architecture might put this in a 'dependency_injection.dart' file.
-
 class MapPage extends ConsumerWidget {
   const MapPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // ignore: unused_local_variable
     final state = ref.watch(mapControllerProvider);
     // We need the service instance to pass the controller to it.
-    // In a cleaner setup, the Controller would handle this via a "setMapController" method exposed to UI?
-    // Or we cast the service.
     final mapService = ref.watch(mapServiceProvider);
 
     return Scaffold(
@@ -30,24 +22,34 @@ class MapPage extends ConsumerWidget {
               target: LatLng(37.42796133580664, -122.085749655962),
               zoom: 14.4746,
             ),
+            // Use the permission state directly for the blue dot
             myLocationEnabled: state.isPermissionGranted,
             myLocationButtonEnabled: state.isPermissionGranted,
             onMapCreated: (GoogleMapController controller) {
               if (mapService is GoogleMapService) {
                  mapService.onMapCreated(controller);
               }
-              // Also verify the controller knows it's ready
+              // Notify controller that the map renderer is ready
               ref.read(mapControllerProvider.notifier).initializeMap();
             },
           ),
-          if (state.currentLocation == null)
-            const Center(
-              child: CircularProgressIndicator(),
+          
+          // CRITICAL FIX:
+          // Changed from checking (currentLocation == null) to (!isReady).
+          // This ensures the spinner disappears as soon as the Map renders,
+          // even if the GPS location is still being fetched or timed out.
+          if (!state.isReady)
+            const ColoredBox(
+              color: Colors.white, // Opaque background to hide the "yellow" map load
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
             ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          // Allow the user to manually trigger the location search again
           ref.read(mapControllerProvider.notifier).recenter();
         },
         child: const Icon(Icons.my_location),
