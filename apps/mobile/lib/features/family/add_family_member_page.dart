@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/utils/input_formatters.dart';
 
 class AddFamilyMemberPage extends StatelessWidget {
   const AddFamilyMemberPage({super.key});
@@ -16,10 +17,12 @@ class AddFamilyMemberPage extends StatelessWidget {
             children: [
               TextFormField(
                 decoration: const InputDecoration(labelText: 'Name'),
+                inputFormatters: [CapitalizeWordsInputFormatter()],
               ),
               const SizedBox(height: 16),
               TextFormField(
                 decoration: const InputDecoration(labelText: 'Email'),
+                inputFormatters: [LowerCaseInputFormatter()],
               ),
               const SizedBox(height: 24),
               ElevatedButton(

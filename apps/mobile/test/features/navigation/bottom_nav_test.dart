@@ -73,7 +73,7 @@ void main() {
 
       // Verify destionations
       expect(find.descendant(of: navBarFinder, matching: find.text('Home')), findsOneWidget);
-      expect(find.text('Add Family'), findsOneWidget);
+      expect(find.text('Add member'), findsOneWidget);
       expect(find.text('Add Location'), findsOneWidget);
       expect(find.text('Menu'), findsOneWidget);
       
@@ -102,7 +102,7 @@ void main() {
       await tester.pumpAndSettle();
 
       // Tap on Add Family
-      await tester.tap(find.text('Add Family'));
+      await tester.tap(find.text('Add member'));
       await tester.pumpAndSettle();
 
       expect(find.text('Add Family Member'), findsOneWidget);

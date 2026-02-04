@@ -20,4 +20,26 @@ void main() {
     // Verify Send button is present
     expect(find.widgetWithText(ElevatedButton, 'Send'), findsOneWidget);
   });
+
+  testWidgets('Name field capitalizes first letter of each word',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(const MaterialApp(home: AddFamilyMemberPage()));
+
+    final nameFinder = find.widgetWithText(TextFormField, 'Name');
+    await tester.enterText(nameFinder, 'john doe');
+    await tester.pump();
+
+    expect(find.text('John Doe'), findsOneWidget);
+  });
+
+  testWidgets('Email field converts to lowercase',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(const MaterialApp(home: AddFamilyMemberPage()));
+
+    final emailFinder = find.widgetWithText(TextFormField, 'Email');
+    await tester.enterText(emailFinder, 'Test@Example.com');
+    await tester.pump();
+
+    expect(find.text('test@example.com'), findsOneWidget);
+  });
 }

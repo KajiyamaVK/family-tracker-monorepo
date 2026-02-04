@@ -39,7 +39,7 @@ class _ScaffoldWithNavBarState extends State<ScaffoldWithNavBar> {
           NavigationDestination(
             icon: Icon(Icons.person_add_outlined),
             selectedIcon: Icon(Icons.person_add),
-            label: 'Add Family',
+            label: 'Add member',
           ),
           NavigationDestination(
             icon: Icon(Icons.add_location_alt_outlined),
