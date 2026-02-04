@@ -105,7 +105,7 @@ void main() {
       await tester.tap(find.text('Add Family'));
       await tester.pumpAndSettle();
 
-      expect(find.text('Add Family Member Placeholder'), findsOneWidget);
+      expect(find.text('Add Family Member'), findsOneWidget);
     });
    
     testWidgets('navigates to Add Location page', (tester) async {

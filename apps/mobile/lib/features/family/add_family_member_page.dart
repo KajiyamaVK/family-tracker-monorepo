@@ -9,8 +9,28 @@ class AddFamilyMemberPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Add Family Member'),
       ),
-      body: const Center(
-        child: Text('Add Family Member Placeholder'),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Form(
+          child: Column(
+            children: [
+              TextFormField(
+                decoration: const InputDecoration(labelText: 'Name'),
+              ),
+              const SizedBox(height: 16),
+              TextFormField(
+                decoration: const InputDecoration(labelText: 'Email'),
+              ),
+              const SizedBox(height: 24),
+              ElevatedButton(
+                onPressed: () {
+                  // TODO: Implement send logic
+                },
+                child: const Text('Send'),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

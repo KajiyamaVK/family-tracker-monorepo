@@ -40,3 +40,7 @@ We follow "Vibe Coding" principles where the AI acts as an Orchestrator and TDD 
 4. **Shadow Technical Debt Prevention**
    - Always check for existing tests before searching for files.
    - Never skip tests for speed.
+
+## Project Structure
+
+- **Mobile App**: The source code for the mobile application is located in `apps/mobile`. tests related to the mobile app should be run from this directory (e.g., `flutter test` inside `apps/mobile`).
