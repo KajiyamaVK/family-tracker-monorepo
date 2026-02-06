@@ -16,7 +16,10 @@ The user can edit this file to add or change instructions for the Gemini CLI age
 
 - **Update Documentation**: Every time we add, remove, or update API endpoints or features, update `README.md` with detailed usage instructions.
 - **Bruno Configuration**: Bruno configuration must be kept in sync with actual API endpoints. When updating, removing, or adding something to functions, changes must be reflected in Bruno config files immediat>
-- **Test Preservation**: When code is not being updated, added, or removed, no content should change in tests. This is a strict shield against LLM mistakes; do not modify existing tests unless the feature they >
+- **Test Preservation**: When code is not being updated, added, or removed, no content should change in tests. This is a strict shield against LLM mistakes; do not modify existing tests unless the feature they cover is changing.
+- **Mandatory Testing**: Every service (added or modified) MUST include both Unit and End-to-End (E2E) tests.
+- **Strict TDD**: Always start by developing tests first (TDD). Run tests -> Fail -> Build solution to pass.
+- **Joi Validation**: usage of `joi` is MANDATORY for validating all requests coming from the client.
 
 ## Vibe Coding & TDD Workflow
 
