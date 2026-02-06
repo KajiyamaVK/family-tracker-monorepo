@@ -17,10 +17,15 @@ pre-commit:
       glob: "**/*.dart"
       run: flutter test # Roda Unit e Widget tests
 
-    # --------------------------------------------------------------------------
-    # BACKEND (NestJS - Placeholder para seu stack)
-    # --------------------------------------------------------------------------
-    # backend-lint:
-    #   root: apps/backend
-    #   glob: "**/*.ts"
-    #   run: npm run lint
+    backend-tests:
+      root: apps/backend
+      glob: "**/*.ts"
+      run: npm run test
+
+pre-push:
+  parallel: true
+  commands:
+    backend-e2e:
+      root: apps/backend
+      glob: "**/*.ts"
+      run: npm run test:e2e
