@@ -1,5 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication, UnauthorizedException } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import request from 'supertest';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
@@ -84,17 +85,41 @@ describe('AuthController (e2e)', () => {
 
     describe('/auth/refresh (POST)', () => {
         it('should return new tokens', async () => {
-            // First login to get tokens (or mock them if we could, but better to integrate)
-            // Since login is mocked above, and returns tokens...
-            // But we haven't implemented login yet.
+            const email = 'refresh-test@example.com';
+            await prisma.familyMember.deleteMany({ where: { email } });
 
-            // This test expects 200. It will fail (404 Not Found likely as controller might not be mounted if module not imported properly in AppModule yet? 
-            // Or 500 "Method not implemented").
+            // Create user
+            const user = await prisma.familyMember.create({
+                data: {
+                    email,
+                    name: 'Refresh Test User',
+                } as any,
+            });
+
+            const configService = app.get<ConfigService>(ConfigService);
+            const refreshSecret = configService.get<string>('JWT_REFRESH_SECRET');
+
+            const payload = { sub: user.id, email: user.email, role: 'MEMBER' };
+            const refreshToken = await jwtService.signAsync(payload, {
+                secret: refreshSecret,
+                expiresIn: '7d',
+            });
+
+            const hash = await bcrypt.hash(refreshToken, 10);
+
+            await prisma.familyMember.update({
+                where: { id: user.id },
+                data: { refreshToken: hash },
+            });
 
             return request(app.getHttpServer())
                 .post('/auth/refresh')
-                .send({ refreshToken: 'some-refresh-token' })
-                .expect(200);
+                .send({ refreshToken: refreshToken })
+                .expect(200)
+                .expect((res) => {
+                    expect(res.body).toHaveProperty('accessToken');
+                    expect(res.body).toHaveProperty('refreshToken');
+                });
         });
     });
 

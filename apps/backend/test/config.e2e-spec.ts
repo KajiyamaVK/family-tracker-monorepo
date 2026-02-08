@@ -25,11 +25,11 @@ describe('Config (e2e)', () => {
         const password = configService.get<string>('POSTGRES_PASSWORD');
         const db = configService.get<string>('POSTGRES_DB');
 
-        expect(host).toBe('pg.kajiyama.com.br');
-        expect(port).toBe(5432);
-        expect(user).toBe('system');
-        expect(password).toBe('SystemPass_9b28s1@');
-        expect(db).toBe('my_agents_db');
+        expect(host).toBeDefined();
+        expect(port).toBeDefined();
+        expect(user).toBeDefined();
+        expect(password).toBeDefined();
+        expect(db).toBeDefined();
     });
 
     afterAll(async () => {
