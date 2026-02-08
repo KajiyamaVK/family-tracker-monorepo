@@ -1,0 +1,18 @@
+meta {
+  name: Request OTP
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/family-members/request-otp
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "Victor",
+    "email": "victor.kajiyama@gmail.com"
+  }
+}

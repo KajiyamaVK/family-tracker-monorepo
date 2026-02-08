@@ -1,0 +1,9 @@
+{
+    "version": "1",
+    "name": "Family Tracker Backend",
+    "type": "collection",
+    "ignore": [
+        ".git",
+        "node_modules"
+    ]
+}
