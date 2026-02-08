@@ -57,6 +57,32 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
+## Authentication
+
+The backend uses **Google SSO** for authentication and **JWT** (JSON Web Tokens) for session management.
+
+### Setup
+
+1.  Ensure `GOOGLE_CLIENT_ID`, `JWT_SECRET`, and `JWT_REFRESH_SECRET` are set in your `.env` file.
+2.  Prerequisites: The user must already exist in the `family_members` table (added via OTP flow) to login.
+
+### Endpoints
+
+#### `POST /auth/login-google`
+Exchanges a valid Google ID Token for an Access Token and Refresh Token.
+- **Body**: `{ "idToken": "..." }`
+- **Response**: `{ "accessToken": "...", "refreshToken": "..." }`
+
+#### `POST /auth/refresh`
+Refreshes the Access Token using a valid Refresh Token. Implements **Rotation**: a new Refresh Token is issued, and the old one is invalidated.
+- **Body**: `{ "refreshToken": "..." }`
+- **Response**: `{ "accessToken": "...", "refreshToken": "..." }`
+
+### Security
+- **Access Token**: Valid for 15 minutes.
+- **Refresh Token**: Valid for 7 days. Stored as a **bcrypt hash** in the database.
+- **Rotation**: Reusing an old refresh token invalidates the session (TODO: enforce stricter reuse detection if needed, currently throws 403).
+
 ## Deployment
 
 When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.

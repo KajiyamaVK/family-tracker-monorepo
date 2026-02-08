@@ -22,6 +22,25 @@ model OtpCode {
   is_expired   Boolean  @default(false)
   added_at     DateTime @default(now())
   archived_at  DateTime?
+  role         Role     @default(MEMBER)
 
   @@map("otp_codes")
+}
+
+model FamilyMember {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  name         String
+  googleId     String?  @unique @map("google_id")
+  refreshToken String?  @map("refresh_token")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+  role         Role     @default(MEMBER)
+
+  @@map("family_members")
+}
+
+enum Role {
+  ADMIN
+  MEMBER
 }

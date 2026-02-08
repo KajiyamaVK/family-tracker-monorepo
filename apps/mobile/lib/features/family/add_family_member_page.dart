@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:mobile/utils/input_formatters.dart';
 
+enum Role { admin, member }
+
 class AddFamilyMemberPage extends StatefulWidget {
   const AddFamilyMemberPage({super.key});
 
@@ -14,6 +16,7 @@ class _AddFamilyMemberPageState extends State<AddFamilyMemberPage> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
+  Role _selectedRole = Role.member;
   bool _isLoading = false;
 
   // TODO: Move to config or env
@@ -32,6 +35,7 @@ class _AddFamilyMemberPageState extends State<AddFamilyMemberPage> {
         body: jsonEncode({
           'name': _nameController.text,
           'email': _emailController.text,
+          'role': _selectedRole.name.toUpperCase(),
         }),
       );
 
@@ -96,6 +100,24 @@ class _AddFamilyMemberPageState extends State<AddFamilyMemberPage> {
                     return 'Please enter a valid email';
                   }
                   return null;
+                },
+              ),
+              const SizedBox(height: 16),
+              DropdownButtonFormField<Role>(
+                initialValue: _selectedRole,
+                decoration: const InputDecoration(labelText: 'Role'),
+                items: Role.values.map((Role role) {
+                  return DropdownMenuItem<Role>(
+                    value: role,
+                    child: Text(role.name.toUpperCase()),
+                  );
+                }).toList(),
+                onChanged: (Role? newValue) {
+                  if (newValue != null) {
+                    setState(() {
+                      _selectedRole = newValue;
+                    });
+                  }
                 },
               ),
               const SizedBox(height: 24),

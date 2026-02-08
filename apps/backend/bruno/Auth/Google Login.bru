@@ -1,0 +1,28 @@
+meta {
+  name: Google Login
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/auth/login-google
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "idToken": "YOUR_GOOGLE_ID_TOKEN"
+  }
+}
+
+script:post-response {
+  if (res.status === 200) {
+    if (res.body.accessToken) {
+      bru.setEnvVar("access_token", res.body.accessToken);
+    }
+    if (res.body.refreshToken) {
+      bru.setEnvVar("refresh_token", res.body.refreshToken);
+    }
+  }
+}

@@ -1,4 +1,5 @@
-import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
+import { IsEmail, IsEnum, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { Role } from '@prisma/client';
 
 export class RequestOtpDto {
     @IsString()
@@ -7,4 +8,8 @@ export class RequestOtpDto {
 
     @IsEmail()
     email: string;
+
+    @IsEnum(Role)
+    @IsOptional()
+    role?: Role = Role.MEMBER;
 }
