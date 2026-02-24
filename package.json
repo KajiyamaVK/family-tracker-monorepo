@@ -1,6 +1,9 @@
 {
   "name": "family-tracker-monorepo",
   "version": "1.0.0",
+  "workspaces": [
+    "apps/*"
+  ],
   "main": "index.js",
   "directories": {
     "doc": "docs"
