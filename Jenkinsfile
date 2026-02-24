@@ -1,10 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'node:lts'
-            args '-v /var/run/docker.sock:/var/run/docker.sock -u root --network proxy-net' 
-        }
-    }
+    agent any
 
     environment {
         DOCKER_IMAGE = 'fam-app'
@@ -13,14 +8,15 @@ pipeline {
     }
 
     stages {
-        stage('Install Dependencies') {
+        stage('Build Application') {
+            agent {
+                docker {
+                    image 'node:lts'
+                    args '-u root --network proxy-net' 
+                }
+            }
             steps {
                 sh 'npm install'
-            }
-        }
-
-        stage('Build') {
-            steps {
                 sh 'npm run build -w apps/backend'
             }
         }
