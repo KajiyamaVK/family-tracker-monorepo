@@ -42,7 +42,25 @@ pipeline {
                 script {
                     sh "docker stop ${DOCKER_CONTAINER_DEV} || true"
                     sh "docker rm ${DOCKER_CONTAINER_DEV} || true"
-                    sh "docker run -d --name ${DOCKER_CONTAINER_DEV} --network proxy-net --restart always ${DOCKER_IMAGE}:latest"
+                    sh """
+                        docker run -d --name ${DOCKER_CONTAINER_DEV} \\
+                            --network proxy-net \\
+                            --restart always \\
+                            -e NODE_ENV=development \\
+                            -e POSTGRES_HOST=\${POSTGRES_HOST} \\
+                            -e POSTGRES_PORT=\${POSTGRES_PORT} \\
+                            -e POSTGRES_USER=\${POSTGRES_USER} \\
+                            -e POSTGRES_PASSWORD=\${POSTGRES_PASSWORD} \\
+                            -e POSTGRES_DB=\${POSTGRES_DB} \\
+                            -e MAIL_HOST=\${MAIL_HOST} \\
+                            -e MAIL_PORT=\${MAIL_PORT} \\
+                            -e MAIL_USER=\${MAIL_USER} \\
+                            -e MAIL_PASS=\${MAIL_PASS} \\
+                            -e JWT_SECRET=\${JWT_SECRET} \\
+                            -e JWT_REFRESH_SECRET=\${JWT_REFRESH_SECRET} \\
+                            -e GOOGLE_CLIENT_ID=\${GOOGLE_CLIENT_ID} \\
+                            ${DOCKER_IMAGE}:latest
+                    """
                 }
             }
         }
@@ -55,7 +73,25 @@ pipeline {
                 script {
                     sh "docker stop ${DOCKER_CONTAINER_PROD} || true"
                     sh "docker rm ${DOCKER_CONTAINER_PROD} || true"
-                    sh "docker run -d --name ${DOCKER_CONTAINER_PROD} --network proxy-net --restart always ${DOCKER_IMAGE}:latest"
+                    sh """
+                        docker run -d --name ${DOCKER_CONTAINER_PROD} \\
+                            --network proxy-net \\
+                            --restart always \\
+                            -e NODE_ENV=production \\
+                            -e POSTGRES_HOST=\${POSTGRES_HOST} \\
+                            -e POSTGRES_PORT=\${POSTGRES_PORT} \\
+                            -e POSTGRES_USER=\${POSTGRES_USER} \\
+                            -e POSTGRES_PASSWORD=\${POSTGRES_PASSWORD} \\
+                            -e POSTGRES_DB=\${POSTGRES_DB} \\
+                            -e MAIL_HOST=\${MAIL_HOST} \\
+                            -e MAIL_PORT=\${MAIL_PORT} \\
+                            -e MAIL_USER=\${MAIL_USER} \\
+                            -e MAIL_PASS=\${MAIL_PASS} \\
+                            -e JWT_SECRET=\${JWT_SECRET} \\
+                            -e JWT_REFRESH_SECRET=\${JWT_REFRESH_SECRET} \\
+                            -e GOOGLE_CLIENT_ID=\${GOOGLE_CLIENT_ID} \\
+                            ${DOCKER_IMAGE}:latest
+                    """
                 }
             }
         }
