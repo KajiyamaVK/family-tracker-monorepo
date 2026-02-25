@@ -52,6 +52,7 @@ pipeline {
                             -e POSTGRES_USER=\${POSTGRES_USER} \\
                             -e POSTGRES_PASSWORD=\${POSTGRES_PASSWORD} \\
                             -e POSTGRES_DB=\${DEV_POSTGRES_DB} \\
+                            -e DATABASE_URL=postgresql://\${POSTGRES_USER}:\${POSTGRES_PASSWORD}@\${POSTGRES_HOST}:\${POSTGRES_PORT}/\${DEV_POSTGRES_DB} \\
                             -e MAIL_HOST=\${MAIL_HOST} \\
                             -e MAIL_PORT=\${MAIL_PORT} \\
                             -e MAIL_USER=\${MAIL_USER} \\
@@ -83,6 +84,7 @@ pipeline {
                             -e POSTGRES_USER=\${POSTGRES_USER} \\
                             -e POSTGRES_PASSWORD=\${POSTGRES_PASSWORD} \\
                             -e POSTGRES_DB=\${PROD_POSTGRES_DB} \\
+                            -e DATABASE_URL=postgresql://\${POSTGRES_USER}:\${POSTGRES_PASSWORD}@\${POSTGRES_HOST}:\${POSTGRES_PORT}/\${PROD_POSTGRES_DB} \\
                             -e MAIL_HOST=\${MAIL_HOST} \\
                             -e MAIL_PORT=\${MAIL_PORT} \\
                             -e MAIL_USER=\${MAIL_USER} \\
