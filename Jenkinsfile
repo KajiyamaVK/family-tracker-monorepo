@@ -47,18 +47,18 @@ pipeline {
                             --network proxy-net \\
                             --restart always \\
                             -e NODE_ENV=development \\
-                            -e POSTGRES_HOST=\${POSTGRES_HOST} \\
-                            -e POSTGRES_PORT=\${POSTGRES_PORT} \\
-                            -e POSTGRES_USER=\${POSTGRES_USER} \\
-                            -e POSTGRES_PASSWORD=\${POSTGRES_PASSWORD} \\
-                            -e POSTGRES_DB=\${POSTGRES_DB} \\
-                            -e MAIL_HOST=\${MAIL_HOST} \\
-                            -e MAIL_PORT=\${MAIL_PORT} \\
-                            -e MAIL_USER=\${MAIL_USER} \\
-                            -e MAIL_PASS=\${MAIL_PASS} \\
-                            -e JWT_SECRET=\${JWT_SECRET} \\
-                            -e JWT_REFRESH_SECRET=\${JWT_REFRESH_SECRET} \\
-                            -e GOOGLE_CLIENT_ID=\${GOOGLE_CLIENT_ID} \\
+                            -e POSTGRES_HOST=\${DEV_POSTGRES_HOST} \\
+                            -e POSTGRES_PORT=\${DEV_POSTGRES_PORT} \\
+                            -e POSTGRES_USER=\${DEV_POSTGRES_USER} \\
+                            -e POSTGRES_PASSWORD=\${DEV_POSTGRES_PASSWORD} \\
+                            -e POSTGRES_DB=\${DEV_POSTGRES_DB} \\
+                            -e MAIL_HOST=\${DEV_MAIL_HOST} \\
+                            -e MAIL_PORT=\${DEV_MAIL_PORT} \\
+                            -e MAIL_USER=\${DEV_MAIL_USER} \\
+                            -e MAIL_PASS=\${DEV_MAIL_PASS} \\
+                            -e JWT_SECRET=\${DEV_JWT_SECRET} \\
+                            -e JWT_REFRESH_SECRET=\${DEV_JWT_REFRESH_SECRET} \\
+                            -e GOOGLE_CLIENT_ID=\${DEV_GOOGLE_CLIENT_ID} \\
                             ${DOCKER_IMAGE}:latest
                     """
                 }
@@ -78,18 +78,18 @@ pipeline {
                             --network proxy-net \\
                             --restart always \\
                             -e NODE_ENV=production \\
-                            -e POSTGRES_HOST=\${POSTGRES_HOST} \\
-                            -e POSTGRES_PORT=\${POSTGRES_PORT} \\
-                            -e POSTGRES_USER=\${POSTGRES_USER} \\
-                            -e POSTGRES_PASSWORD=\${POSTGRES_PASSWORD} \\
-                            -e POSTGRES_DB=\${POSTGRES_DB} \\
-                            -e MAIL_HOST=\${MAIL_HOST} \\
-                            -e MAIL_PORT=\${MAIL_PORT} \\
-                            -e MAIL_USER=\${MAIL_USER} \\
-                            -e MAIL_PASS=\${MAIL_PASS} \\
-                            -e JWT_SECRET=\${JWT_SECRET} \\
-                            -e JWT_REFRESH_SECRET=\${JWT_REFRESH_SECRET} \\
-                            -e GOOGLE_CLIENT_ID=\${GOOGLE_CLIENT_ID} \\
+                            -e POSTGRES_HOST=\${PROD_POSTGRES_HOST} \\
+                            -e POSTGRES_PORT=\${PROD_POSTGRES_PORT} \\
+                            -e POSTGRES_USER=\${PROD_POSTGRES_USER} \\
+                            -e POSTGRES_PASSWORD=\${PROD_POSTGRES_PASSWORD} \\
+                            -e POSTGRES_DB=\${PROD_POSTGRES_DB} \\
+                            -e MAIL_HOST=\${PROD_MAIL_HOST} \\
+                            -e MAIL_PORT=\${PROD_MAIL_PORT} \\
+                            -e MAIL_USER=\${PROD_MAIL_USER} \\
+                            -e MAIL_PASS=\${PROD_MAIL_PASS} \\
+                            -e JWT_SECRET=\${PROD_JWT_SECRET} \\
+                            -e JWT_REFRESH_SECRET=\${PROD_JWT_REFRESH_SECRET} \\
+                            -e GOOGLE_CLIENT_ID=\${PROD_GOOGLE_CLIENT_ID} \\
                             ${DOCKER_IMAGE}:latest
                     """
                 }
