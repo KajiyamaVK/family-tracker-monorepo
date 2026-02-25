@@ -1,5 +1,9 @@
 pipeline {
     agent any
+    
+    triggers {
+        githubPush()
+    }
 
     environment {
         DOCKER_IMAGE = 'fam-app'
