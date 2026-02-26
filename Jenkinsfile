@@ -47,7 +47,7 @@ pipeline {
                             --network proxy-net \\
                             --restart always \\
                             -e NODE_ENV=development \\
-                            -e POSTGRES_HOST=\${POSTGRES_HOST} \\
+                            -e POSTGRES_HOST=postgres-postgis \\
                             -e POSTGRES_PORT=\${POSTGRES_PORT} \\
                             -e POSTGRES_USER=\${POSTGRES_USER} \\
                             -e POSTGRES_PASSWORD=\${POSTGRES_PASSWORD} \\
@@ -78,7 +78,7 @@ pipeline {
                             --network proxy-net \\
                             --restart always \\
                             -e NODE_ENV=production \\
-                            -e POSTGRES_HOST=\${POSTGRES_HOST} \\
+                            -e POSTGRES_HOST=postgres-postgis \\
                             -e POSTGRES_PORT=\${POSTGRES_PORT} \\
                             -e POSTGRES_USER=\${POSTGRES_USER} \\
                             -e POSTGRES_PASSWORD=\${POSTGRES_PASSWORD} \\
