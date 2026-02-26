@@ -1,0 +1,19 @@
+name: Enforce Dev Branch Merges
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  check-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify PR Source Branch
+        run: |
+          if [[ "${{ github.head_ref }}" != "dev" ]]; then
+            echo "::error::All Pull Requests targeting 'main' MUST come from the 'dev' branch."
+            echo "::error::Your branch is '${{ github.head_ref }}'."
+            exit 1
+          fi
+          echo "Branch check passed. PR is from 'dev'."
