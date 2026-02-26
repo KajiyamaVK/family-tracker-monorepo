@@ -53,7 +53,7 @@ pipeline {
                             -e POSTGRES_PASSWORD=\${POSTGRES_PASSWORD} \\
                             -e POSTGRES_DB=\${DEV_POSTGRES_DB} \\
                             -e MAIL_HOST=\${MAIL_HOST} \\
-                            -e MAIL_PORT=\${MAIL_PORT} \\
+                            -e MAIL_PORT=587 \\
                             -e MAIL_USER=\${MAIL_USER} \\
                             -e MAIL_PASS=\${MAIL_PASS} \\
                             -e JWT_SECRET=\${JWT_SECRET} \\
@@ -84,7 +84,7 @@ pipeline {
                             -e POSTGRES_PASSWORD=\${POSTGRES_PASSWORD} \\
                             -e POSTGRES_DB=\${PROD_POSTGRES_DB} \\
                             -e MAIL_HOST=\${MAIL_HOST} \\
-                            -e MAIL_PORT=\${MAIL_PORT} \\
+                            -e MAIL_PORT=587 \\
                             -e MAIL_USER=\${MAIL_USER} \\
                             -e MAIL_PASS=\${MAIL_PASS} \\
                             -e JWT_SECRET=\${JWT_SECRET} \\
