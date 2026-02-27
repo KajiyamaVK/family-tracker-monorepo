@@ -36,7 +36,7 @@ pipeline {
 
         stage('Deploy to Dev') {
             when {
-                not { branch 'main' }
+                branch 'dev'
             }
             steps {
                 script {
