@@ -20,12 +20,14 @@ The user can edit this file to add or change instructions for the Gemini CLI age
 - **Mandatory Testing**: Every service (added or modified) MUST include both Unit and End-to-End (E2E) tests.
 - **Strict TDD**: Always start by developing tests first (TDD). Run tests -> Fail -> Build solution to pass.
 - **Joi Validation**: usage of `joi` is MANDATORY for validating all requests coming from the client.
+- **Branch Management**: Always keep track of the current Git branch. Evaluate if the requested code changes logically align with the current branch's purpose. If they do not, proactively suggest committing current changes (e.g., using the `/acp` workflow) and creating a new branch (e.g., using `/createBranch`) before proceeding. **NEVER commit directly to `dev` or `main` branches.**
 
 ## Vibe Coding & TDD Workflow
 
 We follow "Vibe Coding" principles where the AI acts as an Orchestrator and TDD is the safety net.
 
 ### The Workflow
+
 1. **Define Intent (The Blueprint)**
    - Define the interface or requirement first. Do not jump to code.
    - Example: "Define a TypeScript interface for a service that handles..."
