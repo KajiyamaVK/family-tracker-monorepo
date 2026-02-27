@@ -36,7 +36,10 @@ pipeline {
 
         stage('Deploy to Dev') {
             when {
-                branch 'dev'
+                anyOf {
+                    branch 'dev'
+                    branch 'origin/dev'
+                }
             }
             steps {
                 script {
@@ -67,7 +70,10 @@ pipeline {
 
         stage('Deploy to Prod') {
             when {
-                branch 'main'
+                anyOf {
+                    branch 'main'
+                    branch 'origin/main'
+                }
             }
             steps {
                 script {
