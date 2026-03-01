@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mobile/main.dart';
+import 'package:neriya/main.dart';
 
 void main() {
   testWidgets('Smoke test - App inicia na tela de login', (WidgetTester tester) async {

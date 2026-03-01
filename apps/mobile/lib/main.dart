@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:mobile/features/map/infrastructure/google_map_service.dart';
-import 'package:mobile/features/map/presentation/map_controller.dart';
-import 'package:mobile/router.dart';
+import 'package:neriya/features/map/infrastructure/google_map_service.dart';
+import 'package:neriya/features/map/presentation/map_controller.dart';
+import 'package:neriya/router.dart';
 
 import 'package:google_maps_flutter_android/google_maps_flutter_android.dart';
 import 'package:google_maps_flutter_platform_interface/google_maps_flutter_platform_interface.dart';
@@ -34,7 +34,7 @@ class MyApp extends ConsumerWidget {
     final router = ref.watch(routerProvider);
 
     return MaterialApp.router(
-      title: 'Family Tracker',
+      title: 'Neriya',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,

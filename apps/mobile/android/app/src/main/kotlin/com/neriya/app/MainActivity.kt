@@ -1,4 +1,4 @@
-package com.kajix.mobile
+package com.neriya.app
 
 import io.flutter.embedding.android.FlutterActivity
 
