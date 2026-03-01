@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mobile/features/authentication/auth_providers.dart';
-import 'package:mobile/features/authentication/login_page.dart';
-import 'package:mobile/features/family/add_family_member_page.dart';
-import 'package:mobile/features/home/home_page.dart';
-import 'package:mobile/features/location/add_location_page.dart';
-import 'package:mobile/features/map/presentation/map_page.dart';
-import 'package:mobile/features/menu/menu_page.dart';
-import 'package:mobile/features/navigation/scaffold_with_nav_bar.dart';
+import 'package:neriya/features/authentication/auth_providers.dart';
+import 'package:neriya/features/authentication/login_page.dart';
+import 'package:neriya/features/family/add_family_member_page.dart';
+import 'package:neriya/features/home/home_page.dart';
+import 'package:neriya/features/location/add_location_page.dart';
+import 'package:neriya/features/map/presentation/map_page.dart';
+import 'package:neriya/features/menu/menu_page.dart';
+import 'package:neriya/features/navigation/scaffold_with_nav_bar.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 

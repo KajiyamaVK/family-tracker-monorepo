@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:mobile/features/family/family_provider.dart';
+import 'package:neriya/features/family/family_provider.dart';
 
 class FamilyOnboardingPage extends ConsumerStatefulWidget {
   const FamilyOnboardingPage({super.key});

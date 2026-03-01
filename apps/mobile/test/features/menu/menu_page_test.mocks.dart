@@ -15,7 +15,7 @@ import 'package:go_router/src/parser.dart' as _i7;
 import 'package:go_router/src/router.dart' as _i13;
 import 'package:go_router/src/state.dart' as _i8;
 import 'package:google_sign_in/google_sign_in.dart' as _i11;
-import 'package:mobile/features/authentication/auth_controller.dart' as _i9;
+import 'package:neriya/features/authentication/auth_controller.dart' as _i9;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i14;
 import 'package:state_notifier/state_notifier.dart' as _i12;
