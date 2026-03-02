@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:mobile/features/authentication/auth_controller.dart';
-import 'package:mobile/features/authentication/auth_providers.dart';
-import 'package:mobile/features/authentication/login_page.dart';
-import 'package:mobile/router.dart';
+import 'package:neriya/features/authentication/auth_controller.dart';
+import 'package:neriya/features/authentication/auth_providers.dart';
+import 'package:neriya/features/authentication/login_page.dart';
+import 'package:neriya/router.dart';
 import 'package:mocktail/mocktail.dart';
 
 class MockGoogleSignIn extends Mock implements GoogleSignIn {}

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mobile/features/family/add_family_member_page.dart';
+import 'package:neriya/features/family/add_family_member_page.dart';
 
 void main() {
   testWidgets('AddFamilyMemberPage shows form fields and send button',

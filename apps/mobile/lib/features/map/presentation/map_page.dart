@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:mobile/features/map/infrastructure/google_map_service.dart';
-import 'package:mobile/features/map/presentation/map_controller.dart';
+import 'package:neriya/features/map/infrastructure/google_map_service.dart';
+import 'package:neriya/features/map/presentation/map_controller.dart';
 
 class MapPage extends ConsumerWidget {
   const MapPage({super.key});

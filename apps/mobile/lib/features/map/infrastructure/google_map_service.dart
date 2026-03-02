@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:mobile/features/map/domain/entities/map_location.dart';
-import 'package:mobile/features/map/domain/map_interface.dart';
+import 'package:neriya/features/map/domain/entities/map_location.dart';
+import 'package:neriya/features/map/domain/map_interface.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:geolocator/geolocator.dart';
 
