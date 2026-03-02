@@ -1,4 +1,4 @@
-import 'package:mobile/features/map/domain/entities/map_location.dart';
+import 'package:neriya/features/map/domain/entities/map_location.dart';
 
 /// Defines the capabilities of the Map Service.
 /// This abstraction allows us to test logic without the actual Google Maps plugin.

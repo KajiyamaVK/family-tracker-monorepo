@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# Read the standard input provided by Git to the pre-push hook
+while read local_ref local_sha remote_ref remote_sha
+do
+    # Check if the branch being pushed to the remote is 'main'
+    if [[ "$remote_ref" == *"refs/heads/main"* ]]; then
+        echo ""
+        echo "================================================================="
+        echo "🛑 ERROR: You are trying to push directly to the main branch, "
+        echo "and that is forbidden. Changes to main must come from the dev branch."
+        echo "================================================================="
+        echo ""
+        exit 1 # Abort the push
+    fi
+done
+
+exit 0 # Allow the push

@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mobile/features/map/domain/entities/map_location.dart';
-import 'package:mobile/features/map/domain/map_interface.dart';
-import 'package:mobile/features/map/presentation/map_controller.dart';
+import 'package:neriya/features/map/domain/entities/map_location.dart';
+import 'package:neriya/features/map/domain/map_interface.dart';
+import 'package:neriya/features/map/presentation/map_controller.dart';
 import 'package:mocktail/mocktail.dart';
 
 class MockMapService extends Mock implements MapService {}

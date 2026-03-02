@@ -1,5 +1,5 @@
-name: mobile
-description: "A new Flutter project."
+name: neriya
+description: "Neriya: Family Tracker & GPS Safety"
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -63,6 +63,7 @@ dev_dependencies:
   build_runner: ^2.4.15
   mocktail: ^1.0.4
   mockito: ^5.4.6
+  flutter_launcher_icons: ^0.14.4
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

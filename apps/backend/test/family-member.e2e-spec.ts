@@ -5,16 +5,24 @@ import { AppModule } from '../src/app.module';
 import { PrismaService } from '../src/prisma/prisma.service';
 import { Role } from '@prisma/client';
 import { JwtService } from '@nestjs/jwt';
+import { MailService } from '../src/mail/mail.service';
 
 describe('FamilyMemberController (e2e)', () => {
     let app: INestApplication;
     let prisma: PrismaService;
     let jwtService: JwtService;
 
+    const mockMailService = {
+        sendOtpEmail: jest.fn().mockResolvedValue(undefined),
+    };
+
     beforeAll(async () => {
         const moduleFixture: TestingModule = await Test.createTestingModule({
             imports: [AppModule],
-        }).compile();
+        })
+            .overrideProvider(MailService)
+            .useValue(mockMailService)
+            .compile();
 
         app = moduleFixture.createNestApplication();
         app.useGlobalPipes(new ValidationPipe());

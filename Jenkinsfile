@@ -36,7 +36,7 @@ pipeline {
 
         stage('Deploy to Dev') {
             when {
-                not { branch 'main' }
+                expression { env.GIT_BRANCH == 'origin/dev' || env.GIT_BRANCH == 'dev' }
             }
             steps {
                 script {
@@ -67,7 +67,7 @@ pipeline {
 
         stage('Deploy to Prod') {
             when {
-                branch 'main'
+                expression { env.GIT_BRANCH == 'origin/main' || env.GIT_BRANCH == 'main' }
             }
             steps {
                 script {

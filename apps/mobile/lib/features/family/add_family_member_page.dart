@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:mobile/utils/input_formatters.dart';
+import 'package:neriya/utils/input_formatters.dart';
 
 enum Role { admin, member }
 

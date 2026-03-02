@@ -1,5 +1,5 @@
 {
-  "name": "family-tracker-monorepo",
+  "name": "@neriya/family-tracker-monorepo",
   "version": "1.0.0",
   "workspaces": [
     "apps/*"

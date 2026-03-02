@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:mobile/features/map/domain/entities/map_location.dart';
-import 'package:mobile/features/map/domain/map_interface.dart';
+import 'package:neriya/features/map/domain/entities/map_location.dart';
+import 'package:neriya/features/map/domain/map_interface.dart';
 
 class MapState {
   const MapState({

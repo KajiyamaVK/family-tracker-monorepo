@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mobile/features/authentication/auth_controller.dart';
-import 'package:mobile/features/authentication/auth_providers.dart';
-import 'package:mobile/features/menu/menu_page.dart';
+import 'package:neriya/features/authentication/auth_controller.dart';
+import 'package:neriya/features/authentication/auth_providers.dart';
+import 'package:neriya/features/menu/menu_page.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 

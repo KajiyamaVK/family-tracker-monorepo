@@ -1,6 +1,6 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:mobile/features/family/family_repository.dart';
+import 'package:neriya/features/family/family_repository.dart';
 
 final familyRepositoryProvider = Provider<FamilyRepository>((ref) {
   return FakeFamilyRepository();
