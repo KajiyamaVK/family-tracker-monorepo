@@ -34,6 +34,7 @@ describe('AuthService', () => {
                         familyMember: {
                             findUnique: jest.fn(),
                             update: jest.fn(),
+                            create: jest.fn(),
                         },
                     },
                 },
@@ -93,11 +94,35 @@ describe('AuthService', () => {
             expect(prisma.familyMember.update).toHaveBeenCalled();
         });
 
-        it('should throw UnauthorizedException if user does not exist', async () => {
+        it('should create a new user if user does not exist', async () => {
             jest.spyOn(googleVerifier, 'verify').mockResolvedValue(googleProfile);
             jest.spyOn(prisma.familyMember, 'findUnique').mockResolvedValue(null);
 
-            await expect(service.loginWithGoogle(loginDto)).rejects.toThrow(UnauthorizedException);
+            jest.spyOn(prisma.familyMember, 'create').mockResolvedValue({
+                id: 'new-user-id',
+                email: 'test@example.com',
+                name: 'Test User',
+                googleId: '12345',
+                role: 'MEMBER',
+                createdAt: new Date(),
+                updatedAt: new Date(),
+                refreshToken: null,
+            } as any);
+
+            jest.spyOn(jwtService, 'signAsync').mockResolvedValue('jwt-token');
+            jest.spyOn(prisma.familyMember, 'update').mockResolvedValue({} as any);
+            (bcrypt.hash as jest.Mock).mockResolvedValue('new-hashed-rt');
+
+            const result = await service.loginWithGoogle(loginDto);
+
+            expect(result).toEqual({ accessToken: 'jwt-token', refreshToken: 'jwt-token' });
+            expect(prisma.familyMember.create).toHaveBeenCalledWith({
+                data: {
+                    email: 'test@example.com',
+                    name: 'Test User',
+                    googleId: '12345',
+                },
+            });
         });
     });
 

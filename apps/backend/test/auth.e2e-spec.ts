@@ -40,30 +40,15 @@ describe('AuthController (e2e)', () => {
             mockGoogleVerifier.verify.mockResolvedValue({
                 email: 'e2e-test@example.com',
                 name: 'E2E Test User',
-                googleId: 'google-123',
+                sub: 'google-123',
             });
 
-            // We need to ensure the user exists in DB for login to succeed (logic decision: only existing users?)
-            // Implementation Plan said: "Prerequisites: A FamilyMember must already exist".
-            // So we must seed the user.
+            // Ensure user does not exist before login
+            await prisma.familyMember.deleteMany({
+                where: { email: 'e2e-test@example.com' }
+            });
 
-            await prisma.familyMember.create({
-                data: {
-                    email: 'e2e-test@example.com',
-                    name: 'E2E Test User',
-
-                    // But currently schema has password. We haven't migrated DB yet.
-                    // Phase 2 includes "Update schema".
-                    // So this E2E test might fail on DB constraints if we run it now without schema change.
-                    // BUT: we are in Phase 1 (Contract). The tests define expectations.
-                    // If the schema update is part of Phase 2, we should probably do the schema update NOW if it blocks the test from even passing later?
-                    // Or we define the test expecting the new schema.
-                    // For now, I will omit password field in create, assuming schema will be updated.
-                    // If this throws now, it confirms Red state.
-                } as any,
-            }).catch(() => { }); // Ignore if exists
-
-            return request(app.getHttpServer())
+            await request(app.getHttpServer())
                 .post('/auth/login-google')
                 .send({ idToken: 'valid-token' })
                 .expect(200)
@@ -71,6 +56,14 @@ describe('AuthController (e2e)', () => {
                     expect(res.body).toHaveProperty('accessToken');
                     expect(res.body).toHaveProperty('refreshToken');
                 });
+
+            // Verify user was created in the database
+            const createdUser = await prisma.familyMember.findUnique({
+                where: { email: 'e2e-test@example.com' }
+            });
+            expect(createdUser).toBeDefined();
+            expect(createdUser?.name).toBe('E2E Test User');
+            expect(createdUser?.googleId).toBe('google-123');
         });
 
         it('should return 401 if google token invalid', async () => {

@@ -2,8 +2,6 @@
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
 </p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
 
   <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
     <p align="center">
@@ -28,7 +26,7 @@
 ## Project setup
 
 ```bash
-$ npm install
+npm install
 ```
 
 ## Compile and run the project
@@ -63,22 +61,27 @@ The backend uses **Google SSO** for authentication and **JWT** (JSON Web Tokens)
 
 ### Setup
 
-1.  Ensure `GOOGLE_CLIENT_ID`, `JWT_SECRET`, and `JWT_REFRESH_SECRET` are set in your `.env` file.
-2.  Prerequisites: The user must already exist in the `family_members` table (added via OTP flow) to login.
+1. Ensure `GOOGLE_CLIENT_ID`, `JWT_SECRET`, and `JWT_REFRESH_SECRET` are set in your `.env` file.
+2. **Auto-Registration**: If a user logging in via Google does not exist in the `family_members` table, an account is automatically created for them with their Google profile details.
 
 ### Endpoints
 
 #### `POST /auth/login-google`
+
 Exchanges a valid Google ID Token for an Access Token and Refresh Token.
+
 - **Body**: `{ "idToken": "..." }`
 - **Response**: `{ "accessToken": "...", "refreshToken": "..." }`
 
 #### `POST /auth/refresh`
+
 Refreshes the Access Token using a valid Refresh Token. Implements **Rotation**: a new Refresh Token is issued, and the old one is invalidated.
+
 - **Body**: `{ "refreshToken": "..." }`
 - **Response**: `{ "accessToken": "...", "refreshToken": "..." }`
 
 ### Security
+
 - **Access Token**: Valid for 15 minutes.
 - **Refresh Token**: Valid for 7 days. Stored as a **bcrypt hash** in the database.
 - **Rotation**: Reusing an old refresh token invalidates the session (TODO: enforce stricter reuse detection if needed, currently throws 403).
@@ -90,8 +93,8 @@ When you're ready to deploy your NestJS application to production, there are som
 If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
 
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+npm install -g @nestjs/mau
+mau deploy
 ```
 
 With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.

@@ -31,29 +31,16 @@ export class AuthService {
         });
 
         if (!user) {
-            const isDev = this.configService.get<string>('NODE_ENV') === 'development';
-            // In Development mode, we allow auto-creation of the 'Dev User' 
-            // to facilitate testing with the Dev Bypass token (without needing a real Google account).
-            if (isDev && email === 'dev@example.com') {
-                user = await this.prisma.familyMember.create({
-                    data: {
-                        email,
-                        name: payload.name || 'Dev User',
-                        googleId: payload.sub,
-                    },
-                });
-            } else {
-                throw new UnauthorizedException('User not found');
-            }
-        }
-
-        // Link Google ID if not already linked
-        if (!user.googleId && payload.sub) {
-            await this.prisma.familyMember.update({
-                where: { id: user.id },
-                data: { googleId: payload.sub },
+            user = await this.prisma.familyMember.create({
+                data: {
+                    email,
+                    name: payload.name || 'New User',
+                    googleId: payload.sub,
+                },
             });
         }
+
+
 
         const tokens = await this.getTokens(user.id, user.email, user.role);
         await this.updateRefreshTokenHash(user.id, tokens.refreshToken);
