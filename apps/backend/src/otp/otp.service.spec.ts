@@ -42,19 +42,21 @@ describe('OtpService', () => {
     describe('saveOtp', () => {
         it('should save otp to database', async () => {
             const otp = '123456';
-            const name = 'Test User';
+            const firstName = 'Test';
+            const lastName = 'User';
             const email = 'test@example.com';
             const role = Role.ADMIN;
-            const expectedResult = { id: 'uuid', otp_code: otp, member_name: name, member_email: email, role, is_used: false, is_expired: false, added_at: new Date(), archived_at: null };
+            const expectedResult = { id: 'uuid', otp_code: otp, member_first_name: firstName, member_last_name: lastName, member_email: email, role, is_used: false, is_expired: false, added_at: new Date(), archived_at: null };
 
             mockPrismaService.otpCode.create.mockResolvedValue(expectedResult);
 
-            const result = await service.saveOtp(name, email, otp, role);
+            const result = await service.saveOtp(firstName, lastName, email, otp, role);
             expect(result).toEqual(expectedResult);
             expect(prisma.otpCode.create).toHaveBeenCalledWith({
                 data: {
                     otp_code: otp,
-                    member_name: name,
+                    member_first_name: firstName,
+                    member_last_name: lastName,
                     member_email: email,
                     role: role,
                 },
@@ -63,19 +65,21 @@ describe('OtpService', () => {
 
         it('should use default role MEMBER if not provided', async () => {
             const otp = '123456';
-            const name = 'Test User';
+            const firstName = 'Test';
+            const lastName = 'User';
             const email = 'test@example.com';
             // Mock implementation doesn't strictly need to return correct object if we only check call args, 
             // but consistency is good.
-            const expectedResult = { id: 'uuid', otp_code: otp, member_name: name, member_email: email, role: Role.MEMBER, is_used: false, is_expired: false, added_at: new Date(), archived_at: null };
+            const expectedResult = { id: 'uuid', otp_code: otp, member_first_name: firstName, member_last_name: lastName, member_email: email, role: Role.MEMBER, is_used: false, is_expired: false, added_at: new Date(), archived_at: null };
 
             mockPrismaService.otpCode.create.mockResolvedValue(expectedResult);
 
-            await service.saveOtp(name, email, otp);
+            await service.saveOtp(firstName, lastName, email, otp);
             expect(prisma.otpCode.create).toHaveBeenCalledWith({
                 data: {
                     otp_code: otp,
-                    member_name: name,
+                    member_first_name: firstName,
+                    member_last_name: lastName,
                     member_email: email,
                     role: Role.MEMBER,
                 },

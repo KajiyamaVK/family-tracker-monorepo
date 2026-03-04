@@ -5,7 +5,7 @@ import * as crypto from 'crypto';
 
 export interface IOtpService {
     generateOtp(): string;
-    saveOtp(name: string, email: string, otp: string, role?: Role): Promise<OtpCode>;
+    saveOtp(firstName: string, lastName: string, email: string, otp: string, role?: Role): Promise<OtpCode>;
     markAsUsed(id: string): Promise<OtpCode>;
     deleteOtp(id: string): Promise<void>;
 }
@@ -18,10 +18,11 @@ export class OtpService implements IOtpService {
         return crypto.randomInt(100000, 999999).toString();
     }
 
-    async saveOtp(name: string, email: string, otp: string, role: Role = Role.MEMBER): Promise<OtpCode> {
+    async saveOtp(firstName: string, lastName: string, email: string, otp: string, role: Role = Role.MEMBER): Promise<OtpCode> {
         return this.prisma.otpCode.create({
             data: {
-                member_name: name,
+                member_first_name: firstName,
+                member_last_name: lastName,
                 member_email: email,
                 otp_code: otp,
                 role: role,

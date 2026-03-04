@@ -62,7 +62,8 @@ describe('AuthController (e2e)', () => {
                 where: { email: 'e2e-test@example.com' }
             });
             expect(createdUser).toBeDefined();
-            expect(createdUser?.name).toBe('E2E Test User');
+            expect(createdUser?.first_name).toBe('E2E');
+            expect(createdUser?.last_name).toBe('Test User');
             expect(createdUser?.googleId).toBe('google-123');
         });
 
@@ -85,7 +86,8 @@ describe('AuthController (e2e)', () => {
             const user = await prisma.familyMember.create({
                 data: {
                     email,
-                    name: 'Refresh Test User',
+                    first_name: 'Refresh',
+                    last_name: 'Test',
                 } as any,
             });
 
@@ -125,7 +127,8 @@ describe('AuthController (e2e)', () => {
             const user = await prisma.familyMember.create({
                 data: {
                     email,
-                    name: 'Logout Test User',
+                    first_name: 'Logout',
+                    last_name: 'Test',
                     refreshToken: await bcrypt.hash('valid-refresh', 10),
                 } as any,
             });

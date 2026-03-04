@@ -14,15 +14,16 @@ datasource db {
 }
 
 model OtpCode {
-  id           String   @id @default(uuid())
-  otp_code     String
-  member_name  String
-  member_email String
-  is_used      Boolean  @default(false)
-  is_expired   Boolean  @default(false)
-  added_at     DateTime @default(now())
-  archived_at  DateTime?
-  role         Role     @default(MEMBER)
+  id                String    @id @default(uuid())
+  otp_code          String
+  member_first_name String
+  member_last_name  String
+  member_email      String
+  is_used           Boolean   @default(false)
+  is_expired        Boolean   @default(false)
+  added_at          DateTime  @default(now())
+  archived_at       DateTime?
+  role              Role      @default(MEMBER)
 
   @@map("otp_codes")
 }
@@ -30,7 +31,8 @@ model OtpCode {
 model FamilyMember {
   id           String   @id @default(uuid())
   email        String   @unique
-  name         String
+  first_name   String
+  last_name    String
   googleId     String?  @unique @map("google_id")
   refreshToken String?  @map("refresh_token")
   createdAt    DateTime @default(now()) @map("created_at")

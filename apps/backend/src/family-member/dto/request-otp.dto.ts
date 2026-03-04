@@ -4,7 +4,11 @@ import { Role } from '@prisma/client';
 export class RequestOtpDto {
     @IsString()
     @IsNotEmpty()
-    name: string;
+    firstName: string;
+
+    @IsString()
+    @IsNotEmpty()
+    lastName: string;
 
     @IsEmail()
     email: string;

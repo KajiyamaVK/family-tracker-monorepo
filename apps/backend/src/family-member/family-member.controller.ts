@@ -20,9 +20,9 @@ export class FamilyMemberController {
     @UseGuards(JwtAuthGuard, RolesGuard)
     @Roles(Role.ADMIN)
     async requestOtp(@Body() requestOtpDto: RequestOtpDto) {
-        const { name, email, role } = requestOtpDto;
+        const { firstName, lastName, email, role } = requestOtpDto;
         const otp = this.otpService.generateOtp();
-        const savedOtp = await this.otpService.saveOtp(name, email, otp, role);
+        const savedOtp = await this.otpService.saveOtp(firstName, lastName, email, otp, role);
 
         try {
             await this.mailService.sendOtpEmail(email, otp);

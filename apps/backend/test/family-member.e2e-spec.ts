@@ -51,7 +51,8 @@ describe('FamilyMemberController (e2e)', () => {
             // Create Admin
             const admin = await prisma.familyMember.create({
                 data: {
-                    name: 'Admin User',
+                    first_name: 'Admin',
+                    last_name: 'User',
                     email: 'admin@e2e.com',
                     role: Role.ADMIN
                 }
@@ -59,7 +60,8 @@ describe('FamilyMemberController (e2e)', () => {
             // Create Member
             const member = await prisma.familyMember.create({
                 data: {
-                    name: 'Member User',
+                    first_name: 'Member',
+                    last_name: 'User',
                     email: 'member@e2e.com',
                     role: Role.MEMBER
                 }
@@ -89,7 +91,7 @@ describe('FamilyMemberController (e2e)', () => {
             return request(app.getHttpServer())
                 .post('/family-members/request-otp')
                 .set('Authorization', `Bearer ${adminToken}`)
-                .send({ name: 'Invited', email: 'invited@example.com', role: Role.MEMBER })
+                .send({ firstName: 'Invited', lastName: 'User', email: 'invited@example.com', role: Role.MEMBER })
                 .expect(201);
         });
     });

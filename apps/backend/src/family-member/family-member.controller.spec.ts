@@ -38,7 +38,7 @@ describe('FamilyMemberController', () => {
 
     describe('requestOtp', () => {
         it('should generate otp, save it, and send email', async () => {
-            const dto: RequestOtpDto = { name: 'Test', email: 'test@example.com', role: Role.ADMIN };
+            const dto: RequestOtpDto = { firstName: 'Test', lastName: 'User', email: 'test@example.com', role: Role.ADMIN };
             const otp = '123456';
             mockOtpService.generateOtp.mockReturnValue(otp);
             mockOtpService.saveOtp.mockResolvedValue({ id: 'uuid', ...dto, otp_code: otp });
@@ -47,13 +47,13 @@ describe('FamilyMemberController', () => {
             await controller.requestOtp(dto);
 
             expect(mockOtpService.generateOtp).toHaveBeenCalled();
-            expect(mockOtpService.saveOtp).toHaveBeenCalledWith(dto.name, dto.email, otp, dto.role);
+            expect(mockOtpService.saveOtp).toHaveBeenCalledWith(dto.firstName, dto.lastName, dto.email, otp, dto.role);
             expect(mockMailService.sendOtpEmail).toHaveBeenCalledWith(dto.email, otp);
             expect(mockOtpService.deleteOtp).not.toHaveBeenCalled();
         });
 
         it('should delete otp (rollback) if email sending fails', async () => {
-            const dto: RequestOtpDto = { name: 'Test', email: 'test@example.com' };
+            const dto: RequestOtpDto = { firstName: 'Test', lastName: 'User', email: 'test@example.com' };
             const otp = '123456';
             const otpId = 'uuid';
             mockOtpService.generateOtp.mockReturnValue(otp);

@@ -119,7 +119,8 @@ describe('AuthService', () => {
             expect(prisma.familyMember.create).toHaveBeenCalledWith({
                 data: {
                     email: 'test@example.com',
-                    name: 'Test User',
+                    first_name: 'Test',
+                    last_name: 'User',
                     googleId: '12345',
                 },
             });

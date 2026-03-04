@@ -31,10 +31,16 @@ export class AuthService {
         });
 
         if (!user) {
+            const rawName = payload.name || 'New User';
+            const parts = rawName.split(' ');
+            const firstName = parts[0];
+            const lastName = parts.length > 1 ? parts.slice(1).join(' ') : 'User';
+
             user = await this.prisma.familyMember.create({
                 data: {
                     email,
-                    name: payload.name || 'New User',
+                    first_name: firstName,
+                    last_name: lastName,
                     googleId: payload.sub,
                 },
             });
